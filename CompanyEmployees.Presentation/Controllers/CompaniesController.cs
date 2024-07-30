@@ -10,6 +10,14 @@ namespace CompanyEmployees.Presentation.Controllers
         private readonly IServiceManager _service;
         public CompaniesController(IServiceManager service) => _service = service;
 
+        [HttpGet]
+        public IActionResult GetCompanies()
+        {
+            var companies = _service.CompanyService.GetAllCompanies(trackChanges: false);
+
+            return Ok(companies);
+        }
+
         [HttpGet("{id:guid}")]
         public IActionResult GetCompany(Guid id)
         {
