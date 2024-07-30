@@ -9,6 +9,7 @@ namespace CompanyEmployees.Presentation.Controllers
     {
         private readonly IServiceManager _service;
         public CompaniesController(IServiceManager service) => _service = service;
+
         [HttpGet]
         public IActionResult GetCompanies()
         {
