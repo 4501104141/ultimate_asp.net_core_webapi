@@ -66,10 +66,8 @@ namespace Service
         {
             await CheckIfCompanyExists(companyId, compTrackChanges);
             var employeeDb = await GetEmployeeForCompanyAndCheckIfItExists(companyId, id, empTrackChanges);
-            if (employeeEntity is null)
-                throw new EmployeeNotFoundException(companyId);
-            var employeeToPatch = _mapper.Map<EmployeeForUpdateDto>(employeeEntity);
-            return (employeeToPatch, employeeEntity);
+            var employeeToPatch = _mapper.Map<EmployeeForUpdateDto>(employeeDb);
+            return (employeeToPatch, employeeDb);
         }
 
         public async Task SaveChangesForPatchAsync(EmployeeForUpdateDto employeeToPatch, Employee employeeEntity)
