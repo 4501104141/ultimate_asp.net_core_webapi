@@ -14,11 +14,9 @@ internal sealed class EmployeeRepository : RepositoryBase<Employee>, IEmployeeRe
 
     public async Task<PagedList<Employee>> GetEmployeesAsync(Guid companyId, EmployeeParameters employeeParameters, bool trackChanges)
     {
-        var employees = await FindByCondition(e => e.CompanyId.Equals(companyId), trackChanges)
-            .OrderBy(e => e.Name)
-            .Skip((employeeParameters.PageNumber - 1) * employeeParameters.PageSize)
-            .Take(employeeParameters.PageSize)
-            .ToListAsync();
+        var employees = await FindByCondition(e => e.CompanyId.Equals(companyId) && (e.Age >= employeeParameters.MinAge && e.Age <= employeeParameters.MaxAge), trackChanges)
+                                                    .OrderBy(e => e.Name)
+                                                    .ToListAsync();
 
         var count = await FindByCondition(e => e.CompanyId.Equals(companyId), trackChanges).CountAsync();
 
