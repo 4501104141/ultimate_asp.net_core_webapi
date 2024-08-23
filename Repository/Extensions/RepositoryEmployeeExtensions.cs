@@ -1,4 +1,4 @@
-﻿using Entities;
+﻿using Entities.Entities;
 using Repository.Extensions.Utility;
 using System.Linq.Dynamic.Core;
 

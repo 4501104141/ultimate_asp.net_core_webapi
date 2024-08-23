@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Entities;
+using Entities.Entities;
 using Shared.DataTransferObjects;
 
 namespace CompanyEmployees;
