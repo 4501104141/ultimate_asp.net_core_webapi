@@ -12,20 +12,20 @@ using Repository;
 namespace CompanyEmployees.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20240729032114_DatabaseCreatetion")]
-    partial class DatabaseCreatetion
+    [Migration("20231114091117_InitialData")]
+    partial class InitialData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.7")
+                .HasAnnotation("ProductVersion", "8.0.0-rc.2.23480.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Entities.Company", b =>
+            modelBuilder.Entity("Entities.Models.Company", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -48,9 +48,25 @@ namespace CompanyEmployees.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Companies");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("c9d4c053-49b6-410c-bc78-2d54a9991870"),
+                            Address = "583 Wall Dr. Gwynn Oak, MD 21207",
+                            Country = "USA",
+                            Name = "IT_Solutions Ltd"
+                        },
+                        new
+                        {
+                            Id = new Guid("3d490a70-94ce-4d15-9494-5248280c2ce3"),
+                            Address = "312 Forest Avenue, BF 923",
+                            Country = "USA",
+                            Name = "Admin_Solutions Ltd"
+                        });
                 });
 
-            modelBuilder.Entity("Entities.Employee", b =>
+            modelBuilder.Entity("Entities.Models.Employee", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -78,11 +94,37 @@ namespace CompanyEmployees.Migrations
                     b.HasIndex("CompanyId");
 
                     b.ToTable("Employees");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("80abbca8-664d-4b20-b5de-024705497d4a"),
+                            Age = 26,
+                            CompanyId = new Guid("c9d4c053-49b6-410c-bc78-2d54a9991870"),
+                            Name = "Sam Raiden",
+                            Position = "Software developer"
+                        },
+                        new
+                        {
+                            Id = new Guid("86dba8c0-d178-41e7-938c-ed49778fb52a"),
+                            Age = 30,
+                            CompanyId = new Guid("c9d4c053-49b6-410c-bc78-2d54a9991870"),
+                            Name = "Jana McLeaf",
+                            Position = "Software developer"
+                        },
+                        new
+                        {
+                            Id = new Guid("021ca3c1-0deb-4afd-ae94-2159a8479811"),
+                            Age = 35,
+                            CompanyId = new Guid("3d490a70-94ce-4d15-9494-5248280c2ce3"),
+                            Name = "Kane Miller",
+                            Position = "Administrator"
+                        });
                 });
 
-            modelBuilder.Entity("Entities.Employee", b =>
+            modelBuilder.Entity("Entities.Models.Employee", b =>
                 {
-                    b.HasOne("Entities.Company", "Company")
+                    b.HasOne("Entities.Models.Company", "Company")
                         .WithMany("Employees")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -91,7 +133,7 @@ namespace CompanyEmployees.Migrations
                     b.Navigation("Company");
                 });
 
-            modelBuilder.Entity("Entities.Company", b =>
+            modelBuilder.Entity("Entities.Models.Company", b =>
                 {
                     b.Navigation("Employees");
                 });

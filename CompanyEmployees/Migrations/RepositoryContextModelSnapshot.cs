@@ -17,12 +17,12 @@ namespace CompanyEmployees.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.7")
+                .HasAnnotation("ProductVersion", "8.0.0-rc.2.23480.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Entities.Company", b =>
+            modelBuilder.Entity("Entities.Models.Company", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -63,7 +63,7 @@ namespace CompanyEmployees.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Entities.Employee", b =>
+            modelBuilder.Entity("Entities.Models.Employee", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -119,9 +119,9 @@ namespace CompanyEmployees.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Entities.Employee", b =>
+            modelBuilder.Entity("Entities.Models.Employee", b =>
                 {
-                    b.HasOne("Entities.Company", "Company")
+                    b.HasOne("Entities.Models.Company", "Company")
                         .WithMany("Employees")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -130,7 +130,7 @@ namespace CompanyEmployees.Migrations
                     b.Navigation("Company");
                 });
 
-            modelBuilder.Entity("Entities.Company", b =>
+            modelBuilder.Entity("Entities.Models.Company", b =>
                 {
                     b.Navigation("Employees");
                 });
